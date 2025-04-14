@@ -1,0 +1,2401 @@
+[2025-04-14 19:38:55.656557] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  contents: "import gzip\nfrom io import BytesIO\nfrom mitmproxy import http\nimport aiserver_pb2  # Make sure this matches the compiled file name\n\ndef responseheaders(flow: http.HTTPFlow):\n    if \"/aiserver.v1.AiService/StreamCpp\" in flow.request.path:\n        flow.response.stream = True  # Enable streaming\n\ndef responsechunk(flow: http.HTTPFlow):\n    try:\n        # gRPC frames usually start with 5-byte headers (1 byte flag + 4 bytes length)\n        chunk = flow.response.content\n\n        # If gzip-encoded, decompress it\n        if flow.response.headers.get(\"content-encoding\") == \"gzip\":\n            chunk = gzip.GzipFile(fileobj=BytesIO(chunk)).read()\n\n        while chunk:\n            print(chunk)\n            print(len(chunk))\n            print(chunk[0])\n            print(chunk[1:5])\n            print(chunk[5:5 + msg_len])\n            print(chunk[5 + msg_len:])\n            if len(chunk) < 5:\n                print(\"[!] Incomplete gRPC frame header.\")\n                break\n\n            compressed_flag = chunk[0]\n            msg_len = int.from_bytes(chunk[1:5], byteorder=\"big\")\n            if len(chunk) < 5 + msg_len:\n                print(\"[!] Incomplete gRPC message payload.\")\n                break\n\n            message_bytes = chunk[5:5 + msg_len]\n            chunk = chunk[5 + msg_len:]  # Prepare next chunk\n\n            # Decode protobuf message\n            msg = aiserver_pb2.StreamCppResponse()  # Adapt to actual message type\n            msg.ParseFromString(message_bytes)\n\n            \n\n            print(\"[gRPC Stream] Decoded message:\")\n            print(msg)\n            \n\n    except Exception as e:\n        print(f\"[!] Error parsing gRPC stream: {e}\")\n"
+  cursor_position {
+    line: 46
+    column: 12
+  }
+  file_version: 2
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "47+|            \n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652335307
+time_since_request_start: 53
+time_at_request_send: 1744652335307
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:38:59.372835] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  contents: "import gzip\nfrom io import BytesIO\nfrom mitmproxy import http\nimport aiserver_pb2  # Make sure this matches the compiled file name\n\ndef responseheaders(flow: http.HTTPFlow):\n    if \"/aiserver.v1.AiService/StreamCpp\" in flow.request.path:\n        flow.response.stream = True  # Enable streaming\n\ndef responsechunk(flow: http.HTTPFlow):\n    try:\n        # gRPC frames usually start with 5-byte headers (1 byte flag + 4 bytes length)\n        chunk = flow.response.content\n\n        # If gzip-encoded, decompress it\n        if flow.response.headers.get(\"content-encoding\") == \"gzip\":\n            chunk = gzip.GzipFile(fileobj=BytesIO(chunk)).read()\n\n        while chunk:\n            print(chunk)\n            print(len(chunk))\n            print(chunk[0])\n            print(chunk[1:5])\n            print(chunk[5:5 + msg_len])\n            print(chunk[5 + msg_len:])\n            if len(chunk) < 5:\n                print(\"[!] Incomplete gRPC frame header.\")\n                break\n\n            compressed_flag = chunk[0]\n            msg_len = int.from_bytes(chunk[1:5], byteorder=\"big\")\n            if len(chunk) < 5 + msg_len:\n                print(\"[!] Incomplete gRPC message payload.\")\n                break\n\n            message_bytes = chunk[5:5 + msg_len]\n            chunk = chunk[5 + msg_len:]  # Prepare next chunk\n\n            # Decode protobuf message\n            msg = aiserver_pb2.StreamCppResponse()  # Adapt to actual message type\n            msg.ParseFromString(message_bytes)\n\n            \n\n            print(\"[gRPC Stream] Decoded message:\")\n            print(msg)\n            print(msg.response.response)\n            \n\n    except Exception as e:\n        print(f\"[!] Error parsing gRPC stream: {e}\")\n"
+  cursor_position {
+    line: 47
+    column: 12
+  }
+  file_version: 4
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "47+|            print(msg.response.response)\n48+|            \n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652339362
+time_since_request_start: 51.89990234375
+time_at_request_send: 1744652339362
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:40.052691] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  contents: "import gzip\nfrom io import BytesIO\nfrom mitmproxy import http\nimport aiserver_pb2  # Make sure this matches the compiled file name\n\ndef responseheaders(flow: http.HTTPFlow):\n    if \"/aiserver.v1.AiService/StreamCpp\" in flow.request.path:\n        flow.response.stream = True  # Enable streaming\n\ndef responsechunk(flow: http.HTTPFlow):\n    try:\n        # gRPC frames usually start with 5-byte headers (1 byte flag + 4 bytes length)\n        chunk = flow.response.content\n\n        # If gzip-encoded, decompress it\n        if flow.response.headers.get(\"content-encoding\") == \"gzip\":\n            chunk = gzip.GzipFile(fileobj=BytesIO(chunk)).read()\n\n        while chunk:\n            print(chunk)\n            print(len(chunk))\n            print(chunk[0])\n            print(chunk[1:5])\n            print(chunk[5:5 + msg_len])\n            print(chunk[5 + msg_len:])\n            if len(chunk) < 5:\n                print(\"[!] Incomplete gRPC frame header.\")\n                break\n\n            compressed_flag = chunk[0]\n            msg_len = int.from_bytes(chunk[1:5], byteorder=\"big\")\n            if len(chunk) < 5 + msg_len:\n                print(\"[!] Incomplete gRPC message payload.\")\n                break\n\n            message_bytes = chunk[5:5 + msg_len]\n            chunk = chunk[5 + msg_len:]  # Prepare next chunk\n\n            # Decode protobuf message\n            msg = aiserver_pb2.StreamCppResponse()  # Adapt to actual message type\n            msg.ParseFromString(message_bytes)\n           \n\n            print(\"[gRPC Stream] Decoded message:\")\n            print(msg)\n            print(msg.response.response)\n            print(msg.response.response.response)\n\n    except Exception as e:\n        print(f\"[!] Error parsing gRPC stream: {e}\")\n"
+  cursor_position {
+    line: 41
+  }
+  file_version: 3
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42+|           \n43-|            \n44-|\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652379980
+time_since_request_start: 51.300048828125
+time_at_request_send: 1744652379981
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:41.168395] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  contents: "import gzip\nfrom io import BytesIO\nfrom mitmproxy import http\nimport aiserver_pb2  # Make sure this matches the compiled file name\n\ndef responseheaders(flow: http.HTTPFlow):\n    if \"/aiserver.v1.AiService/StreamCpp\" in flow.request.path:\n        flow.response.stream = True  # Enable streaming\n\ndef responsechunk(flow: http.HTTPFlow):\n    try:\n        # gRPC frames usually start with 5-byte headers (1 byte flag + 4 bytes length)\n        chunk = flow.response.content\n\n        # If gzip-encoded, decompress it\n        if flow.response.headers.get(\"content-encoding\") == \"gzip\":\n            chunk = gzip.GzipFile(fileobj=BytesIO(chunk)).read()\n\n        while chunk:\n            print(chunk)\n            print(len(chunk))\n            print(chunk[0])\n            print(chunk[1:5])\n            print(chunk[5:5 + msg_len])\n            print(chunk[5 + msg_len:])\n            if len(chunk) < 5:\n                print(\"[!] Incomplete gRPC frame header.\")\n                break\n\n            compressed_flag = chunk[0]\n            msg_len = int.from_bytes(chunk[1:5], byteorder=\"big\")\n            if len(chunk) < 5 + msg_len:\n                print(\"[!] Incomplete gRPC message payload.\")\n                break\n\n            message_bytes = chunk[5:5 + msg_len]\n            chunk = chunk[5 + msg_len:]  # Prepare next chunk\n\n            # Decode protobuf message\n            msg = aiserver_pb2.StreamCppResponse()  # Adapt to actual message type\n            msg.ParseFromString(message_bytes)\n          \n\n            print(\"[gRPC Stream] Decoded message:\")\n            print(msg)\n            print(msg.response.response)\n            print(msg.response.response.response)\n\n    except Exception as e:\n        print(f\"[!] Error parsing gRPC stream: {e}\")\n"
+  cursor_position {
+    line: 41
+  }
+  file_version: 4
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42+|          \n43-|            \n44-|\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652380823
+time_since_request_start: 54.10009765625
+time_at_request_send: 1744652380824
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:41.253605] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  contents: "import gzip\nfrom io import BytesIO\nfrom mitmproxy import http\nimport aiserver_pb2  # Make sure this matches the compiled file name\n\ndef responseheaders(flow: http.HTTPFlow):\n    if \"/aiserver.v1.AiService/StreamCpp\" in flow.request.path:\n        flow.response.stream = True  # Enable streaming\n\ndef responsechunk(flow: http.HTTPFlow):\n    try:\n        # gRPC frames usually start with 5-byte headers (1 byte flag + 4 bytes length)\n        chunk = flow.response.content\n\n        # If gzip-encoded, decompress it\n        if flow.response.headers.get(\"content-encoding\") == \"gzip\":\n            chunk = gzip.GzipFile(fileobj=BytesIO(chunk)).read()\n\n        while chunk:\n            print(chunk)\n            print(len(chunk))\n            print(chunk[0])\n            print(chunk[1:5])\n            print(chunk[5:5 + msg_len])\n            print(chunk[5 + msg_len:])\n            if len(chunk) < 5:\n                print(\"[!] Incomplete gRPC frame header.\")\n                break\n\n            compressed_flag = chunk[0]\n            msg_len = int.from_bytes(chunk[1:5], byteorder=\"big\")\n            if len(chunk) < 5 + msg_len:\n                print(\"[!] Incomplete gRPC message payload.\")\n                break\n\n            message_bytes = chunk[5:5 + msg_len]\n            chunk = chunk[5 + msg_len:]  # Prepare next chunk\n\n            # Decode protobuf message\n            msg = aiserver_pb2.StreamCppResponse()  # Adapt to actual message type\n            msg.ParseFromString(message_bytes)\n         \n\n            print(\"[gRPC Stream] Decoded message:\")\n            print(msg)\n            print(msg.response.response)\n            print(msg.response.response.response)\n\n    except Exception as e:\n        print(f\"[!] Error parsing gRPC stream: {e}\")\n"
+  cursor_position {
+    line: 41
+  }
+  file_version: 5
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42+|         \n43-|            \n44-|\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652381242
+time_since_request_start: 65.60009765625
+time_at_request_send: 1744652381242
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:42.100536] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 41
+  }
+  file_version: 6
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42+|        \n43-|            \n44-|\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652382068
+filesync_updates {
+  model_version: 6
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1482
+    end_position: 1483
+    change_length: 1
+  }
+  expected_file_length: 1739
+}
+time_since_request_start: 53.199951171875
+time_at_request_send: 1744652382068
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:42.707817] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 41
+  }
+  file_version: 7
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42+|       \n43-|            \n44-|\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652382696
+filesync_updates {
+  model_version: 7
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1482
+    end_position: 1483
+    change_length: 1
+  }
+  expected_file_length: 1738
+}
+time_since_request_start: 51.800048828125
+time_at_request_send: 1744652382697
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:46.003447] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 41
+  }
+  file_version: 8
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42+|      \n43-|            \n44-|\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652385982
+filesync_updates {
+  model_version: 8
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1482
+    end_position: 1483
+    change_length: 1
+  }
+  expected_file_length: 1737
+}
+time_since_request_start: 51.300048828125
+time_at_request_send: 1744652385983
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:49.129233] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 41
+    column: 8
+  }
+  file_version: 10
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42+|              \n43-|            \n44-|\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652389105
+filesync_updates {
+  model_version: 10
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1486
+    end_position: 1486
+    replaced_string: "    "
+  }
+  expected_file_length: 1745
+}
+time_since_request_start: 51.60009765625
+time_at_request_send: 1744652389105
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:50.478075] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 41
+    column: 12
+  }
+  file_version: 11
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42-|              \n42+|                  \n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652390453
+filesync_updates {
+  model_version: 11
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1490
+    end_position: 1490
+    replaced_string: "    "
+  }
+  expected_file_length: 1749
+}
+time_since_request_start: 51.60009765625
+time_at_request_send: 1744652390454
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:55.993996] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 42
+  }
+  file_version: 12
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42-|              \n42+|            print(msg)\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652395976
+time_since_request_start: 51.60009765625
+time_at_request_send: 1744652395976
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:56.246398] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 43
+  }
+  file_version: 13
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42-|              \n42+|            print(msg)\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652396235
+filesync_updates {
+  model_version: 13
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1505
+    end_position: 1505
+    replaced_string: "\n"
+  }
+  expected_file_length: 1754
+}
+time_since_request_start: 52.2001953125
+time_at_request_send: 1744652396236
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:39:56.873190] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 43
+    column: 4
+  }
+  file_version: 14
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42-|              \n42+|            print(msg)\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652396862
+filesync_updates {
+  model_version: 14
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1506
+    end_position: 1506
+    replaced_string: "    "
+  }
+  expected_file_length: 1758
+}
+time_since_request_start: 50
+time_at_request_send: 1744652396863
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:40:02.428682] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 42
+    column: 4
+  }
+  file_version: 20
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42-|              \n42+|            print(msg)\n44+|            print(msg.response.response)\n45+|            \n"
+  diff_history: "43-|\n43+|    \n45-|            \n46-|            print(\"[gRPC Stream] Decoded message:\")\n47-|            print(msg)\n48-|            print(msg.response.response)\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652402408
+filesync_updates {
+  model_version: 20
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1505
+    end_position: 1505
+    replaced_string: "    "
+  }
+  expected_file_length: 1682
+}
+time_since_request_start: 51.199951171875
+time_at_request_send: 1744652402408
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:40:02.880712] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 42
+    column: 8
+  }
+  file_version: 21
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42-|              \n42+|            print(msg)\n44+|            print(msg.response.response)\n45+|            \n"
+  diff_history: "43-|\n43+|        \n45-|            \n46-|            print(\"[gRPC Stream] Decoded message:\")\n47-|            print(msg)\n48-|            print(msg.response.response)\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652402870
+filesync_updates {
+  model_version: 21
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1509
+    end_position: 1509
+    replaced_string: "    "
+  }
+  expected_file_length: 1686
+}
+time_since_request_start: 52.300048828125
+time_at_request_send: 1744652402870
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:40:03.201164] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "mitm_cursor_proto.py"
+  cursor_position {
+    line: 42
+    column: 12
+  }
+  file_version: 22
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "mitm_cursor_proto.py"
+  diff_history: "42-|              \n42+|            print(msg)\n44+|            print(msg.response.response)\n45+|            \n"
+  diff_history: "43-|\n44-|            print(msg.response.response)\n46-|            print(\"[gRPC Stream] Decoded message:\")\n47-|            print(msg)\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+additional_files {
+  relative_workspace_path: "aiserver_pb2.py"
+  visible_range_content: ""
+  last_viewed_at: 1744652375476
+}
+client_time: 1744652403186
+filesync_updates {
+  model_version: 21
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1509
+    end_position: 1509
+    replaced_string: "    "
+  }
+  expected_file_length: 1686
+}
+filesync_updates {
+  model_version: 22
+  relative_workspace_path: "mitm_cursor_proto.py"
+  updates {
+    start_position: 1513
+    end_position: 1513
+    replaced_string: "    "
+  }
+  expected_file_length: 1690
+}
+time_since_request_start: 50.699951171875
+time_at_request_send: 1744652403186
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:45:16.526602] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\n"
+  cursor_position {
+    line: 1
+  }
+  file_version: 2
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "1+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652716160
+time_since_request_start: 53
+time_at_request_send: 1744652716161
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:46:40.999522] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+  }
+  file_version: 3
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652800982
+time_since_request_start: 55
+time_at_request_send: 1744652800983
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:47:19.837165] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\n"
+  cursor_position {
+    line: 1
+  }
+  file_version: 2
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "1+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652839459
+time_since_request_start: 55
+time_at_request_send: 1744652839460
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:47:21.096230] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\np"
+  cursor_position {
+    line: 1
+    column: 1
+  }
+  file_version: 3
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "1+|\r\n2+|p\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652841078
+time_since_request_start: 51.800048828125
+time_at_request_send: 1744652841078
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:47:25.845924] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 2
+  }
+  file_version: 6
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "1+|\r\n2+|print(\"Hello World\")\r\n"
+  diff_history: "3+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652845835
+filesync_updates {
+  model_version: 6
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 22
+    end_position: 22
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 26
+}
+time_since_request_start: 51.099853515625
+time_at_request_send: 1744652845836
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:48:27.738253] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 3
+  }
+  file_version: 7
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "1+|\r\n2+|print(\"Hello World\")\r\n"
+  diff_history: "3+|\r\n4+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652907725
+filesync_updates {
+  model_version: 7
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 24
+    end_position: 24
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 28
+}
+time_since_request_start: 50.699951171875
+time_at_request_send: 1744652907725
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:49:36.735193] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 8
+  }
+  file_version: 10
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "1+|\r\n2+|print(\"Hello World\")\r\n"
+  diff_history: "3+|\r\n4+|print(\"Hello World\")\r\n5+|\r\n6+|print(\"Hello World\")\r\n7+|\r\n8+|print(\"Hello World\")\r\n9+|\r\n10+|\r\n"
+  diff_history: "11+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652976354
+filesync_updates {
+  model_version: 10
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 94
+    end_position: 94
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 102
+}
+time_since_request_start: 50.900146484375
+time_at_request_send: 1744652976354
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:49:36.956728] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 9
+  }
+  file_version: 11
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "1+|\r\n2+|print(\"Hello World\")\r\n"
+  diff_history: "3+|\r\n4+|print(\"Hello World\")\r\n5+|\r\n6+|print(\"Hello World\")\r\n7+|\r\n8+|print(\"Hello World\")\r\n9+|\r\n10+|\r\n"
+  diff_history: "11+|\r\n12+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744652976942
+filesync_updates {
+  model_version: 11
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 96
+    end_position: 96
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 104
+}
+time_since_request_start: 51
+time_at_request_send: 1744652976942
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:52:33.015116] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 19
+  }
+  file_version: 14
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "1+|\r\n2+|print(\"Hello World\")\r\n"
+  diff_history: "3+|\r\n4+|print(\"Hello World\")\r\n5+|\r\n6+|print(\"Hello World\")\r\n7+|\r\n8+|print(\"Hello World\")\r\n9+|\r\n10+|\r\n"
+  diff_history: "10+|print(\"Hello World\")\r\n"
+  diff_history: "12+|print(\"Hello World\")\r\n14+|print(\"Hello World\")\r\n15+|\r\n16+|\r\n17+|\r\n18+|\r\n19+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653152998
+filesync_updates {
+  model_version: 14
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 176
+    end_position: 176
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 178
+}
+time_since_request_start: 52.5
+time_at_request_send: 1744653152999
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:53:55.814803] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n\r\n\r\n\r\n"
+  cursor_position {
+    line: 18
+  }
+  file_version: 2
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653235457
+time_since_request_start: 53.60009765625
+time_at_request_send: 1744653235458
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:54:06.634607] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n\r\n\r\n"
+  cursor_position {
+    line: 17
+  }
+  file_version: 3
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653246614
+time_since_request_start: 52.099853515625
+time_at_request_send: 1744653246614
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:54:06.831934] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n\r\n"
+  cursor_position {
+    line: 16
+  }
+  file_version: 4
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "17-|\r\n18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653246820
+time_since_request_start: 68.5
+time_at_request_send: 1744653246821
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:54:07.011945] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n"
+  cursor_position {
+    line: 15
+  }
+  file_version: 5
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16-|\r\n17-|\r\n18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653246972
+time_since_request_start: 54.300048828125
+time_at_request_send: 1744653246973
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:05.449758] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n"
+  cursor_position {
+    line: 14
+  }
+  file_version: 6
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653305435
+time_since_request_start: 50.5
+time_at_request_send: 1744653305436
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:09.043294] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")"
+  cursor_position {
+    line: 13
+    column: 20
+  }
+  file_version: 7
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653309026
+time_since_request_start: 51.89990234375
+time_at_request_send: 1744653309026
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:09.955380] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 14
+  }
+  file_version: 8
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653309945
+filesync_updates {
+  model_version: 8
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 166
+    end_position: 166
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 168
+}
+time_since_request_start: 55.10009765625
+time_at_request_send: 1744653309945
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:10.129431] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 15
+  }
+  file_version: 9
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16-|\r\n17-|\r\n18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653310119
+filesync_updates {
+  model_version: 8
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 166
+    end_position: 166
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 168
+}
+filesync_updates {
+  model_version: 9
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 168
+    end_position: 168
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 170
+}
+time_since_request_start: 63.10009765625
+time_at_request_send: 1744653310119
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:10.327464] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 16
+  }
+  file_version: 10
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "17-|\r\n18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653310317
+filesync_updates {
+  model_version: 8
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 166
+    end_position: 166
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 168
+}
+filesync_updates {
+  model_version: 9
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 168
+    end_position: 168
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 170
+}
+filesync_updates {
+  model_version: 10
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 170
+    end_position: 170
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 172
+}
+time_since_request_start: 60.7998046875
+time_at_request_send: 1744653310318
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:11.444663] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 17
+  }
+  file_version: 11
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653311434
+filesync_updates {
+  model_version: 11
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 172
+    end_position: 172
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 174
+}
+time_since_request_start: 51.400146484375
+time_at_request_send: 1744653311434
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:12.672406] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 17
+    column: 4
+  }
+  file_version: 12
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "18-|\r\n19-|\r\n18+|    \n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653312654
+filesync_updates {
+  model_version: 12
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 174
+    end_position: 174
+    replaced_string: "    "
+  }
+  expected_file_length: 178
+}
+time_since_request_start: 51.60009765625
+time_at_request_send: 1744653312654
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:13.434441] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 17
+  }
+  file_version: 13
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "typing"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653313423
+filesync_updates {
+  model_version: 13
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 174
+    end_position: 178
+    change_length: 4
+  }
+  expected_file_length: 174
+}
+time_since_request_start: 50.89990234375
+time_at_request_send: 1744653313423
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:13.814904] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 16
+  }
+  file_version: 14
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "17-|\r\n18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653313803
+filesync_updates {
+  model_version: 13
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 174
+    end_position: 178
+    change_length: 4
+  }
+  expected_file_length: 174
+}
+filesync_updates {
+  model_version: 14
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 172
+    end_position: 174
+    change_length: 2
+  }
+  expected_file_length: 172
+}
+time_since_request_start: 50.5
+time_at_request_send: 1744653313803
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:13.995688] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 15
+  }
+  file_version: 15
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16-|\r\n17-|\r\n18-|\r\n19-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653313978
+filesync_updates {
+  model_version: 14
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 172
+    end_position: 174
+    change_length: 2
+  }
+  expected_file_length: 172
+}
+filesync_updates {
+  model_version: 15
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 170
+    end_position: 172
+    change_length: 2
+  }
+  expected_file_length: 170
+}
+time_since_request_start: 53.199951171875
+time_at_request_send: 1744653313978
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:14.142762] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 14
+  }
+  file_version: 16
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653314132
+filesync_updates {
+  model_version: 14
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 172
+    end_position: 174
+    change_length: 2
+  }
+  expected_file_length: 172
+}
+filesync_updates {
+  model_version: 15
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 170
+    end_position: 172
+    change_length: 2
+  }
+  expected_file_length: 170
+}
+filesync_updates {
+  model_version: 16
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 168
+    end_position: 170
+    change_length: 2
+  }
+  expected_file_length: 168
+}
+time_since_request_start: 51.300048828125
+time_at_request_send: 1744653314133
+
+--------------------------------------------------------------------------------
+[2025-04-14 19:55:14.307037] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 13
+    column: 20
+  }
+  file_version: 17
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744653314288
+filesync_updates {
+  model_version: 14
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 172
+    end_position: 174
+    change_length: 2
+  }
+  expected_file_length: 172
+}
+filesync_updates {
+  model_version: 15
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 170
+    end_position: 172
+    change_length: 2
+  }
+  expected_file_length: 170
+}
+filesync_updates {
+  model_version: 16
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 168
+    end_position: 170
+    change_length: 2
+  }
+  expected_file_length: 168
+}
+filesync_updates {
+  model_version: 17
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 166
+    end_position: 168
+    change_length: 2
+  }
+  expected_file_length: 166
+}
+time_since_request_start: 64.89990234375
+time_at_request_send: 1744653314288
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:17:17.820716] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n\r\n"
+  cursor_position {
+    line: 20
+  }
+  file_version: 19
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744654637494
+time_since_request_start: 53.39990234375
+time_at_request_send: 1744654637494
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:17:34.354111] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n"
+  cursor_position {
+    line: 19
+  }
+  file_version: 20
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744654654342
+time_since_request_start: 50.60009765625
+time_at_request_send: 1744654654342
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:17:35.781119] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n"
+  cursor_position {
+    line: 18
+  }
+  file_version: 21
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n17-|\r\n18-|\r\n19-|\r\n18+|print(\"Hello World\")\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744654655770
+time_since_request_start: 51
+time_at_request_send: 1744654655770
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:17:36.771921] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n"
+  cursor_position {
+    line: 19
+  }
+  file_version: 22
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744654656762
+time_since_request_start: 50.5
+time_at_request_send: 1744654656762
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:23:54.562948] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n"
+  cursor_position {
+    line: 20
+  }
+  file_version: 24
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "21+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655034553
+time_since_request_start: 54.300048828125
+time_at_request_send: 1744655034554
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:23:54.723947] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n\r\n"
+  cursor_position {
+    line: 21
+  }
+  file_version: 25
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "21+|\r\n22+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655034714
+time_since_request_start: 65.39990234375
+time_at_request_send: 1744655034714
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:24:17.474812] Method: StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n\r\n"
+  cursor_position {
+    line: 20
+  }
+  file_version: 25
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "21+|\r\n22+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655057453
+time_since_request_start: 59.89990234375
+time_at_request_send: 1744655057454
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:24:50.055691] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n"
+  cursor_position {
+    line: 19
+    column: 20
+  }
+  file_version: 26
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655090041
+time_since_request_start: 50.699951171875
+time_at_request_send: 1744655090041
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:25:28.548688] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\nprint(\"Hello World\")\r\n\r\n\r\n"
+  cursor_position {
+    line: 20
+  }
+  file_version: 27
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655128534
+time_since_request_start: 50.60009765625
+time_at_request_send: 1744655128534
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:25:35.524944] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 28
+  }
+  file_version: 30
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|\r\n29+|\r\n30+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655135512
+filesync_updates {
+  model_version: 30
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 314
+    end_position: 314
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 320
+}
+time_since_request_start: 52.400146484375
+time_at_request_send: 1744655135512
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:28:40.092471] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 27
+  }
+  file_version: 31
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|\r\n29+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655320082
+filesync_updates {
+  model_version: 31
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 314
+    end_position: 316
+    change_length: 2
+  }
+  expected_file_length: 318
+}
+time_since_request_start: 51.400146484375
+time_at_request_send: 1744655320082
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:28:40.249446] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 26
+  }
+  file_version: 32
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655320239
+filesync_updates {
+  model_version: 31
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 314
+    end_position: 316
+    change_length: 2
+  }
+  expected_file_length: 318
+}
+filesync_updates {
+  model_version: 32
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 312
+    end_position: 314
+    change_length: 2
+  }
+  expected_file_length: 316
+}
+time_since_request_start: 50.39990234375
+time_at_request_send: 1744655320239
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:28:40.450057] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 25
+    column: 20
+  }
+  file_version: 33
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655320423
+filesync_updates {
+  model_version: 31
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 314
+    end_position: 316
+    change_length: 2
+  }
+  expected_file_length: 318
+}
+filesync_updates {
+  model_version: 32
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 312
+    end_position: 314
+    change_length: 2
+  }
+  expected_file_length: 316
+}
+filesync_updates {
+  model_version: 33
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 310
+    end_position: 312
+    change_length: 2
+  }
+  expected_file_length: 314
+}
+time_since_request_start: 61
+time_at_request_send: 1744655320423
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:28:41.037108] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 26
+  }
+  file_version: 34
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655321026
+filesync_updates {
+  model_version: 31
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 314
+    end_position: 316
+    change_length: 2
+  }
+  expected_file_length: 318
+}
+filesync_updates {
+  model_version: 32
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 312
+    end_position: 314
+    change_length: 2
+  }
+  expected_file_length: 316
+}
+filesync_updates {
+  model_version: 33
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 310
+    end_position: 312
+    change_length: 2
+  }
+  expected_file_length: 314
+}
+filesync_updates {
+  model_version: 34
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 310
+    end_position: 310
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 316
+}
+time_since_request_start: 50.699951171875
+time_at_request_send: 1744655321026
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:28:57.014484] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 7
+    column: 20
+  }
+  file_version: 37
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "9-|\r\n10-|print(\"Hello World\")\r\n11-|\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655337004
+filesync_updates {
+  model_version: 37
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 94
+    end_position: 96
+    change_length: 2
+  }
+  expected_file_length: 96
+}
+time_since_request_start: 50.5
+time_at_request_send: 1744655337004
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:28:57.898680] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 8
+  }
+  file_version: 38
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "10-|print(\"Hello World\")\r\n11-|\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655337887
+filesync_updates {
+  model_version: 38
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 94
+    end_position: 94
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 98
+}
+time_since_request_start: 54.5
+time_at_request_send: 1744655337887
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:32:01.034337] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 9
+  }
+  file_version: 39
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "10-|print(\"Hello World\")\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655521019
+filesync_updates {
+  model_version: 39
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 96
+    end_position: 96
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 100
+}
+time_since_request_start: 51.89990234375
+time_at_request_send: 1744655521019
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:34:56.719772] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 10
+  }
+  file_version: 40
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "10-|print(\"Hello World\")\r\n12-|print(\"Hello World\")\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655696707
+filesync_updates {
+  model_version: 40
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 98
+    end_position: 98
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 102
+}
+time_since_request_start: 50.89990234375
+time_at_request_send: 1744655696708
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:34:56.864808] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 11
+  }
+  file_version: 41
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "10-|print(\"Hello World\")\r\n12-|print(\"Hello World\")\r\n14-|print(\"Hello World\")\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655696856
+filesync_updates {
+  model_version: 40
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 98
+    end_position: 98
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 102
+}
+filesync_updates {
+  model_version: 41
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 100
+    end_position: 100
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 104
+}
+time_since_request_start: 56.300048828125
+time_at_request_send: 1744655696856
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:35:16.538795] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 10
+  }
+  file_version: 42
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "10-|print(\"Hello World\")\r\n12-|print(\"Hello World\")\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655716516
+filesync_updates {
+  model_version: 42
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 100
+    end_position: 102
+    change_length: 2
+  }
+  expected_file_length: 102
+}
+time_since_request_start: 52.099853515625
+time_at_request_send: 1744655716516
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:35:17.104982] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 9
+  }
+  file_version: 43
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "10-|print(\"Hello World\")\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655717094
+filesync_updates {
+  model_version: 43
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 98
+    end_position: 100
+    change_length: 2
+  }
+  expected_file_length: 100
+}
+time_since_request_start: 51.2998046875
+time_at_request_send: 1744655717094
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:35:18.495429] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 8
+  }
+  file_version: 44
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "10-|print(\"Hello World\")\r\n11-|\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655718484
+filesync_updates {
+  model_version: 44
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 96
+    end_position: 98
+    change_length: 2
+  }
+  expected_file_length: 98
+}
+time_since_request_start: 51.10009765625
+time_at_request_send: 1744655718485
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:35:25.655839] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 16
+  }
+  file_version: 47
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "11-|\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+  diff_history: "11+|\r\n12+|print(\"Hello World\")\r\n13+|\r\n14+|print(\"Hello World\")\r\n15+|\r\n16+|\r\n17+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655725639
+filesync_updates {
+  model_version: 47
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 170
+    end_position: 170
+    replaced_string: "\r\n"
+  }
+  expected_file_length: 174
+}
+time_since_request_start: 49.60009765625
+time_at_request_send: 1744655725640
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:35:44.577236] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 15
+  }
+  file_version: 48
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "11-|\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+  diff_history: "11+|\r\n12+|print(\"Hello World\")\r\n13+|\r\n14+|print(\"Hello World\")\r\n15+|\r\n16+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655744565
+filesync_updates {
+  model_version: 48
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 170
+    end_position: 172
+    change_length: 2
+  }
+  expected_file_length: 172
+}
+time_since_request_start: 53.199951171875
+time_at_request_send: 1744655744565
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:35:44.883379] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  cursor_position {
+    line: 14
+  }
+  file_version: 49
+  rely_on_filesync: true
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "11-|\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+  diff_history: "11+|\r\n12+|print(\"Hello World\")\r\n13+|\r\n14+|print(\"Hello World\")\r\n15+|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744655744871
+filesync_updates {
+  model_version: 48
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 170
+    end_position: 172
+    change_length: 2
+  }
+  expected_file_length: 172
+}
+filesync_updates {
+  model_version: 49
+  relative_workspace_path: "printhelloworld.py"
+  updates {
+    start_position: 168
+    end_position: 170
+    change_length: 2
+  }
+  expected_file_length: 170
+}
+time_since_request_start: 51.39990234375
+time_at_request_send: 1744655744872
+
+--------------------------------------------------------------------------------
+[2025-04-14 20:52:02.133554] Path: /aiserver.v1.AiService/StreamCpp
+current_file {
+  relative_workspace_path: "printhelloworld.py"
+  contents: "\r\nprint(\"Hello World\")\r\n\r\n"
+  cursor_position {
+    line: 3
+  }
+  file_version: 51
+  workspace_root_path: "ThePathOfWhatIsInterceptedAndIDontWantYouToSeeIt\\CursorPoc"
+}
+give_debug_output: false
+file_diff_histories {
+  file_name: "printhelloworld.py"
+  diff_history: "16+|print(\"Hello World\")\r\n18+|print(\"Hello World\")\r\n18-|\r\n19-|\r\n20+|print(\"Hello World\")\r\n"
+  diff_history: "22+|print(\"Hello World\")\r\n"
+  diff_history: "24+|print(\"Hello World\")\r\n25+|\r\n26+|print(\"Hello World\")\r\n27+|\r\n28+|print(\"Hello World\")\r\n29+|\r\n"
+  diff_history: "11-|\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n16-|print(\"Hello World\")\r\n17-|\r\n18-|print(\"Hello World\")\r\n19-|\r\n20-|print(\"Hello World\")\r\n21-|\r\n22-|print(\"Hello World\")\r\n23-|\r\n24-|print(\"Hello World\")\r\n25-|\r\n26-|print(\"Hello World\")\r\n27-|\r\n28-|print(\"Hello World\")\r\n29-|\r\n"
+  diff_history: "11+|\r\n12+|print(\"Hello World\")\r\n13+|\r\n14+|print(\"Hello World\")\r\n15+|\r\n"
+  diff_history: "4-|print(\"Hello World\")\r\n5-|\r\n6-|print(\"Hello World\")\r\n7-|\r\n8-|print(\"Hello World\")\r\n9-|\r\n10-|print(\"Hello World\")\r\n11-|\r\n12-|print(\"Hello World\")\r\n13-|\r\n14-|print(\"Hello World\")\r\n15-|\r\n"
+}
+is_debug: false
+cpp_intent_info {
+  source: "line_change"
+}
+workspace_id: "7h2o22j9k7orfr7pbxymtc"
+client_time: 1744656721814
+time_since_request_start: 51.300048828125
+time_at_request_send: 1744656721815
+
+--------------------------------------------------------------------------------
