@@ -1,5 +1,10 @@
 # MITM Proxy Cursor Debug Script
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/5c819149-f3e5-4157-89c6-6ff409a3e58b" alt="Example Screencast">
+  <hr>
+</div>
+
 This is a POC of how to decode on the fly the `aiserver` requests/responses of [Cursor](https://www.cursor.com/en). Take a look to the [cursor-rpc](https://github.com/everestmz/cursor-rpc) Proto files extracted by @everestmz (copy included here for convenience).
 
 # How-To
