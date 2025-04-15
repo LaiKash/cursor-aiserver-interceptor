@@ -41,3 +41,4 @@ You should see an attempt to parse the `proto` requests/responses that mitweb is
 
 If you see any warning you might want to ignore it for now.
 
+When a "mitm session" is closed (i.e., when the `mitmweb` command is stopped with `ctrl-C`), a file with the extension `.mitm` is saved in the `mitm_dumps` directory. These files contain all the data recorded in the corresponding mitm session. To open these files, use the command: `mitmweb -r mitm_dumps/[name-of-the-file].mitm`.
