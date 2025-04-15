@@ -3,12 +3,20 @@ import os
 from datetime import datetime
 
 from mitmproxy import ctx, http
+from mitmproxy.io import FlowWriter
 
 import aiserver_pb2  # Make sure your compiled protobuf file is available
 
 # Directory for log output
 LOG_DIR = "grpc_logs"
 os.makedirs(LOG_DIR, exist_ok=True)
+
+# Directory for mitm dump output
+MITM_DUMP_DIR = "mitm_dumps"
+os.makedirs(MITM_DUMP_DIR, exist_ok=True)
+
+# Global list to store flows
+captured_flows = []
 
 
 def log_to_file(filename: str, content: str):
@@ -98,6 +106,10 @@ def request(flow: http.HTTPFlow):
     ):
         return
 
+    # Add flow to the list if it's relevant
+    if flow not in captured_flows:
+        captured_flows.append(flow)
+
     method = get_grpc_method_name(flow.request.path)
     ctx.log.info(f"[*] Detected gRPC request for method: {method}")
     try:
@@ -138,6 +150,10 @@ def response(flow: http.HTTPFlow):
     ):
         return
 
+    # Add flow to the list if it's relevant and not already added by request
+    if flow not in captured_flows:
+        captured_flows.append(flow)
+
     method = get_grpc_method_name(flow.request.path)
     ctx.log.info(f"[*] Detected gRPC response for method: {method}")
     try:
@@ -162,3 +178,25 @@ def response(flow: http.HTTPFlow):
             ctx.log.warn(f"[!] Empty response content for method: {method}")
     except Exception as e:
         ctx.log.error(f"[!] Error parsing gRPC response: {e}")
+
+
+def done():
+    """
+    Called when mitmproxy is shutting down. Saves captured flows to a .mitm file.
+    """
+    if not captured_flows:
+        ctx.log.info("No relevant flows captured to save.")
+        return
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"grpc_capture_{timestamp}.mitm"
+    filepath = os.path.join(MITM_DUMP_DIR, filename)
+
+    try:
+        with open(filepath, "wb") as f:
+            fw = FlowWriter(f)
+            for flow in captured_flows:
+                fw.add(flow)
+        ctx.log.info(f"[*] Saved {len(captured_flows)} flows to {filepath}")
+    except Exception as e:
+        ctx.log.error(f"[!] Failed to save flows to {filepath}: {e}")

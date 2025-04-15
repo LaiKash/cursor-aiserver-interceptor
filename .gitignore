@@ -2,3 +2,4 @@ grpc_logs/grpc_requests.log
 grpc_logs/grpc_responses.log
 __pycache__/
 .venv
+mitm_dumps/*.mitm
