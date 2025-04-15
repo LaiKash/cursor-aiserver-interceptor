@@ -1,21 +1,25 @@
-from mitmproxy import http, ctx
-from io import BytesIO
 import gzip
 import os
 from datetime import datetime
+
+from mitmproxy import ctx, http
+
 import aiserver_pb2  # Make sure your compiled protobuf file is available
 
 # Directory for log output
 LOG_DIR = "grpc_logs"
 os.makedirs(LOG_DIR, exist_ok=True)
 
+
 def log_to_file(filename: str, content: str):
     path = os.path.join(LOG_DIR, filename)
     with open(path, "a", encoding="utf-8") as f:
         f.write(content + "\n" + ("-" * 80) + "\n")
 
+
 def get_timestamp():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+
 
 def get_grpc_method_name(path: str) -> str:
     """
@@ -23,6 +27,7 @@ def get_grpc_method_name(path: str) -> str:
     Example: "/aiserver.v1.AiService/StreamCpp" returns "StreamCpp"
     """
     return path.strip("/").split("/")[-1]
+
 
 def get_proto_class(method: str, direction: str):
     """
@@ -33,6 +38,7 @@ def get_proto_class(method: str, direction: str):
     """
     class_name = f"{method}{'Request' if direction == 'request' else 'Response'}"
     return getattr(aiserver_pb2, class_name, None)
+
 
 def parse_grpc_messages(data: bytes, method: str, direction: str):
     """
@@ -47,11 +53,11 @@ def parse_grpc_messages(data: bytes, method: str, direction: str):
     while offset + 5 <= total:
         # Read header: 1-byte flag and 4-byte message length.
         compressed_flag = data[offset]
-        msg_len = int.from_bytes(data[offset+1:offset+5], byteorder="big")
+        msg_len = int.from_bytes(data[offset + 1 : offset + 5], byteorder="big")
         if offset + 5 + msg_len > total:
             ctx.log.warn("[!] Incomplete gRPC payload detected.")
             break
-        message_bytes = data[offset+5: offset+5+msg_len]
+        message_bytes = data[offset + 5 : offset + 5 + msg_len]
         offset += 5 + msg_len
 
         # If the compressed flag is 1, decompress the message.
@@ -64,7 +70,9 @@ def parse_grpc_messages(data: bytes, method: str, direction: str):
 
         msg_class = get_proto_class(method, direction)
         if not msg_class:
-            ctx.log.warn(f"[!] Unknown protobuf class for method '{method}' ({direction}).")
+            ctx.log.warn(
+                f"[!] Unknown protobuf class for method '{method}' ({direction})."
+            )
             continue
 
         try:
@@ -76,6 +84,7 @@ def parse_grpc_messages(data: bytes, method: str, direction: str):
     remaining = data[offset:]
     return messages, remaining
 
+
 def request(flow: http.HTTPFlow):
     # Only process if the URL contains the target service.
     if "aiserver.v1.AiService" not in flow.request.url:
@@ -83,33 +92,50 @@ def request(flow: http.HTTPFlow):
 
     # Also check for expected content type.
     content_type = flow.request.headers.get("content-type", "")
-    if "application/proto" not in content_type and "application/connect+proto" not in content_type:
+    if (
+        "application/proto" not in content_type
+        and "application/connect+proto" not in content_type
+    ):
         return
 
     method = get_grpc_method_name(flow.request.path)
     ctx.log.info(f"[*] Detected gRPC request for method: {method}")
     try:
         raw = flow.request.raw_content
-        messages, remaining = parse_grpc_messages(raw, method, direction="request")
-        if remaining:
-            ctx.log.warn(f"[!] Unparsed {len(remaining)} bytes remain in the request payload.")
+        if raw is not None:
+            messages, remaining = parse_grpc_messages(raw, method, direction="request")
+            if remaining:
+                ctx.log.warn(
+                    f"[!] Unparsed {len(remaining)} bytes remain in the request payload."
+                )
         for msg in messages:
             decoded = str(msg)
             timestamp = get_timestamp()
             ctx.log.info(f"[gRPC Request {method}] Decoded:")
             ctx.log.info(decoded)
-            log_to_file("grpc_requests.log", f"[{timestamp}] Path: {flow.request.path}\n{decoded}")
+            log_to_file(
+                "grpc_requests.log",
+                f"[{timestamp}] Path: {flow.request.path}\n{decoded}",
+            )
     except Exception as e:
         ctx.log.error(f"[!] Error parsing gRPC request: {e}")
+
 
 def response(flow: http.HTTPFlow):
     # Only process if the URL contains the target service.
     if "aiserver.v1.AiService" not in flow.request.url:
         return
 
+    # Ensure there is a response before proceeding
+    if not flow.response:
+        return
+
     # Check for expected content type.
     content_type = flow.response.headers.get("content-type", "")
-    if "application/proto" not in content_type and "application/connect+proto" not in content_type:
+    if (
+        "application/proto" not in content_type
+        and "application/connect+proto" not in content_type
+    ):
         return
 
     method = get_grpc_method_name(flow.request.path)
@@ -117,14 +143,22 @@ def response(flow: http.HTTPFlow):
     try:
         # Since we're not enabling streaming, we expect the full response.
         raw = flow.response.content
-        messages, remaining = parse_grpc_messages(raw, method, direction="response")
-        if remaining:
-            ctx.log.warn(f"[!] Unparsed {len(remaining)} bytes remain in the response payload.")
-        for msg in messages:
-            decoded = str(msg)
-            timestamp = get_timestamp()
-            ctx.log.info(f"[gRPC Response {method}] Decoded:")
-            ctx.log.info(decoded)
-            log_to_file("grpc_responses.log", f"[{timestamp}] Path: {flow.request.path}\n{decoded}")
+        if raw is not None:
+            messages, remaining = parse_grpc_messages(raw, method, direction="response")
+            if remaining:
+                ctx.log.warn(
+                    f"[!] Unparsed {len(remaining)} bytes remain in the response payload."
+                )
+            for msg in messages:
+                decoded = str(msg)
+                timestamp = get_timestamp()
+                ctx.log.info(f"[gRPC Response {method}] Decoded:")
+                ctx.log.info(decoded)
+                log_to_file(
+                    "grpc_responses.log",
+                    f"[{timestamp}] Path: {flow.request.path}\n{decoded}",
+                )
+        else:
+            ctx.log.warn(f"[!] Empty response content for method: {method}")
     except Exception as e:
         ctx.log.error(f"[!] Error parsing gRPC response: {e}")
