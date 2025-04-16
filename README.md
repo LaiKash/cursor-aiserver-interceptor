@@ -20,7 +20,6 @@ The setup was done on Windows with MiTMProxy. This is to make use of the [local 
 Create a python virtual environment, activate it and the install the following packages with pip:
 
 - `pip install mitmproxy` (don't install it with the Windows installer)
-- `pip install protobuf compiler`
 
 ### Alternative installation for protobuf
 
