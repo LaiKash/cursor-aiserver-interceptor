@@ -1,5 +1,10 @@
 # MITM Proxy Cursor Debug Script
 
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/7d9bafd7-3925-4636-88ea-bba665ca53bf" alt="Example Screencast">
+  <hr>
+</div>
+
 This is a POC of how to decode on the fly the `aiserver` requests/responses of [Cursor](https://www.cursor.com/en). Take a look to the [cursor-rpc](https://github.com/everestmz/cursor-rpc) Proto files extracted by @everestmz (copy included here for convenience).
 
 # How-To
@@ -41,3 +46,10 @@ You should see an attempt to parse the `proto` requests/responses that mitweb is
 If you see any warning you might want to ignore it for now.
 
 When a "mitm session" is closed (i.e., when the `mitmweb` command is stopped with `ctrl-C`), a file with the extension `.mitm` is saved in the `mitm_dumps` directory. These files contain all the data recorded in the corresponding mitm session. To open these files, use the command: `mitmweb -r mitm_dumps/[name-of-the-file].mitm`.
+
+<details>
+  <summary>Example video</summary>
+  <div align="center">
+    <video src="https://github.com/user-attachments/assets/5c819149-f3e5-4157-89c6-6ff409a3e58b" alt="Example Screencast mitm file">
+  </div>
+</details>
